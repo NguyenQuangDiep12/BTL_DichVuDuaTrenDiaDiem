@@ -1,0 +1,230 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hanoi-hoankiem",
+        "name": "Hồ Hoàn Kiếm",
+        "description": "Biểu tượng của Hà Nội với tháp Rùa và đền Ngọc Sơn.",
+        "category": "di_tich",
+        "address": "Quận Hoàn Kiếm, Hà Nội",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ho_Hoan_Kiem%2C_Hanoi%2C_Vietnam.jpg/320px-Ho_Hoan_Kiem%2C_Hanoi%2C_Vietnam.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.8525, 21.0287]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hanoi-vanmieu",
+        "name": "Văn Miếu - Quốc Tử Giám",
+        "description": "Trường đại học đầu tiên của Việt Nam, xây dựng năm 1070.",
+        "category": "di_tich",
+        "address": "58 Quốc Tử Giám, Đống Đa, Hà Nội",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Van_Mieu%2C_Hanoi.jpg/320px-Van_Mieu%2C_Hanoi.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.8354, 21.0279]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "halong-bay",
+        "name": "Vịnh Hạ Long",
+        "description": "Di sản thiên nhiên thế giới với hàng nghìn đảo đá vôi.",
+        "category": "thien_nhien",
+        "address": "Quảng Ninh, Việt Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ha_Long_Bay%2C_Vietnam%2C_Boats.jpg/320px-Ha_Long_Bay%2C_Vietnam%2C_Boats.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [107.0502, 20.9101]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "sapa-fansipan",
+        "name": "Sa Pa & Fansipan",
+        "description": "Vùng núi cao với ruộng bậc thang và đỉnh Fansipan.",
+        "category": "thien_nhien",
+        "address": "Lào Cai, Việt Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Sapa_rice_terrace.jpg/320px-Sapa_rice_terrace.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.844, 22.336]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hoian-oldtown",
+        "name": "Phố cổ Hội An",
+        "description": "Thành phố cổ với kiến trúc đèn lồng và hội an UNESCO.",
+        "category": "di_tich",
+        "address": "Hội An, Quảng Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Hoi_An_ancient_town.jpg/320px-Hoi_An_ancient_town.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [108.3269, 15.8801]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "danang-bana",
+        "name": "Bà Nà Hills",
+        "description": "Khu du lịch trên núi nổi tiếng với Cầu Vàng.",
+        "category": "giai_tri",
+        "address": "Hòa Vang, Đà Nẵng",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Golden_Bridge%2C_Ba_Na_Hills.jpg/320px-Golden_Bridge%2C_Ba_Na_Hills.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [107.9956, 15.995]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "nhatrang-beach",
+        "name": "Biển Nha Trang",
+        "description": "Thành phố biển nổi tiếng với bãi cát trắng và đảo.",
+        "category": "bai_bien",
+        "address": "Nha Trang, Khánh Hòa",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Nha_Trang_beach.jpg/320px-Nha_Trang_beach.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [109.1967, 12.2388]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "dalat-xuanhuong",
+        "name": "Hồ Xuân Hương",
+        "description": "Trái tim thành phố Đà Lạt giữa rừng thông.",
+        "category": "thien_nhien",
+        "address": "Đà Lạt, Lâm Đồng",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Xuan_Huong_Lake%2C_Dalat.jpg/320px-Xuan_Huong_Lake%2C_Dalat.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [108.4419, 11.9404]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "phuquoc-beach",
+        "name": "Phú Quốc",
+        "description": "Đảo ngọc với bãi biển trong xanh và resort.",
+        "category": "bai_bien",
+        "address": "Kiên Giang, Việt Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Phu_Quoc_beach.jpg/320px-Phu_Quoc_beach.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9574, 10.2899]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hcm-ben-thanh",
+        "name": "Chợ Bến Thành",
+        "description": "Chợ truyền thống biểu tượng TP. Hồ Chí Minh.",
+        "category": "di_tich",
+        "address": "Quận 1, TP. Hồ Chí Minh",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ben_Thanh_Market%2C_Ho_Chi_Minh_City.jpg/320px-Ben_Thanh_Market%2C_Ho_Chi_Minh_City.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.698, 10.7725]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cu-chi-tunnels",
+        "name": "Địa đạo Củ Chi",
+        "description": "Di tích lịch sử kháng chiến với hệ thống địa đạo.",
+        "category": "di_tich",
+        "address": "Củ Chi, TP. Hồ Chí Minh",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Cu_Chi_tunnels_entrance.jpg/320px-Cu_Chi_tunnels_entrance.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.4942, 11.1528]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hue-citadel",
+        "name": "Kinh thành Huế",
+        "description": "Quần thể di tích cố đô Huế thuộc UNESCO.",
+        "category": "di_tich",
+        "address": "Huế, Thừa Thiên Huế",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Hue_Citadel.jpg/320px-Hue_Citadel.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [107.5794, 16.4696]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "phongnha-cave",
+        "name": "Phong Nha - Kẻ Bàng",
+        "description": "Vườn quốc gia với hang động kỳ vĩ nhất thế giới.",
+        "category": "thien_nhien",
+        "address": "Quảng Bình, Việt Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Phong_Nha_Cave.jpg/320px-Phong_Nha_Cave.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.2833, 17.5906]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "mekong-delta",
+        "name": "Chợ nổi Cái Răng",
+        "description": "Chợ nổi đặc trưng vùng đồng bằng sông Cửu Long.",
+        "category": "giai_tri",
+        "address": "Cần Thơ, Việt Nam",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cai_Rang_Floating_Market.jpg/320px-Cai_Rang_Floating_Market.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.7833, 10.0167]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "muine-sand-dunes",
+        "name": "Đồi cát Mũi Né",
+        "description": "Cảnh quan đồi cát đỏ và trắng độc đáo.",
+        "category": "thien_nhien",
+        "address": "Phan Thiết, Bình Thuận",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Mui_Ne_sand_dunes.jpg/320px-Mui_Ne_sand_dunes.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [108.45, 10.95]
+      }
+    }
+  ]
+}

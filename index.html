@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hệ thống tìm kiếm địa điểm du lịch Việt Nam trên bản đồ"
+    />
+    <title>Tìm Kiếm Địa Điểm Du Lịch</title>
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar" class="sidebar">
+        <header class="sidebar-header">
+          <h1>Du Lịch Việt Nam</h1>
+          <p class="subtitle">Tìm kiếm & khám phá trên bản đồ</p>
+        </header>
+
+        <section class="search-section">
+          <label for="searchInput" class="sr-only">Từ khóa tìm kiếm</label>
+          <div class="search-row autocomplete-wrapper">
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Gõ vùng miền, tỉnh thành hoặc địa điểm..."
+              autocomplete="off"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="autocompleteDropdown"
+              aria-autocomplete="list"
+            />
+            <button id="searchBtn" type="button" title="Tìm kiếm">
+              Tìm
+            </button>
+            <div id="autocompleteDropdown" class="autocomplete-dropdown" role="listbox"></div>
+          </div>
+
+          <div class="filter-row">
+            <label for="categoryFilter">Danh mục</label>
+            <select id="categoryFilter">
+              <option value="all">Tất cả</option>
+              <option value="di_tich">Di tích & văn hóa</option>
+              <option value="thien_nhien">Thiên nhiên</option>
+              <option value="bai_bien">Biển & đảo</option>
+              <option value="giai_tri">Giải trí</option>
+            </select>
+          </div>
+
+          <div class="origin-section">
+            <label for="originInput">Điểm xuất phát</label>
+            <div class="origin-row">
+              <input
+                id="originInput"
+                type="text"
+                placeholder="Địa chỉ hoặc tọa độ: 21.0285, 105.8542"
+                autocomplete="off"
+              />
+              <button id="originBtn" type="button" title="Đặt vị trí xuất phát">
+                Đặt
+              </button>
+            </div>
+            <div class="origin-actions">
+              <button id="originGpsBtn" type="button" class="btn-link">
+                Dùng GPS hiện tại
+              </button>
+              <span id="originStatus" class="origin-status">Chưa đặt vị trí xuất phát</span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button id="nearbyBtn" type="button" class="btn-secondary">
+              Gần đây (OSM)
+            </button>
+            <button id="resetBtn" type="button" class="btn-ghost">
+              Xóa bản đồ
+            </button>
+          </div>
+          <p class="hint-text">
+            Điểm xuất phát dùng cho chỉ đường &amp; tìm gần đây · GPS: nút <strong>⊕</strong> trên bản đồ
+          </p>
+        </section>
+
+        <section class="results-section">
+          <div class="results-header">
+            <h2>Kết quả</h2>
+            <span id="resultCount" class="badge">0</span>
+          </div>
+          <ul id="resultsList" class="results-list"></ul>
+        </section>
+
+        <footer class="sidebar-footer">
+          <p>
+            Dữ liệu:
+            <a href="https://www.openstreetmap.org" target="_blank" rel="noreferrer">OpenStreetMap</a>
+            ·
+            <a href="https://nominatim.org" target="_blank" rel="noreferrer">Nominatim</a>
+            ·
+            <a href="https://project-osrm.org" target="_blank" rel="noreferrer">OSRM</a>
+          </p>
+        </footer>
+      </aside>
+
+      <main id="map" class="map-container" aria-label="Bản đồ du lịch"></main>
+
+      <div id="statusToast" class="status-toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
