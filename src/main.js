@@ -254,6 +254,53 @@ async function searchNearby() {
     }
 }
 
+/**
+ * Tìm địa điểm du lịch gần một tọa độ GPS
+ * Kết hợp: địa điểm GeoJSON trong bán kính + Overpass API
+ */
+async function searchNearbyFromLocation(location) {
+    showStatus('Đang tìm địa điểm du lịch gần bạn...', 'info')
+
+    try {
+        const category = getCategory()
+
+        // Địa điểm GeoJSON trong bán kính ~80km (0.72 độ)
+        const RADIUS_DEG = 0.72
+        const allLocal = tourismLayer.getPlaces(category)
+        const localNearby = allLocal.filter(p => {
+            const dlat = p.lat - location.latitude
+            const dlng = p.lon - location.longitude
+            return Math.sqrt(dlat * dlat + dlng * dlng) <= RADIUS_DEG
+        })
+
+        // Overpass tìm POI du lịch trong bán kính 10km
+        const overpassResults = await overpassService.searchNearby(
+            location.latitude,
+            location.longitude,
+            10000
+        )
+
+        const overpassFiltered = category === 'all'
+            ? overpassResults
+            : overpassResults.filter(p => p.category === category)
+
+        // Ưu tiên địa điểm GeoJSON (có ảnh, mô tả) lên trước
+        const merged = mergeResults(localNearby, overpassFiltered)
+
+        resultsPanel.render(merged)
+        displaySearchMarkers(merged)
+
+        if (merged.length > 0) {
+            showStatus(`Tìm thấy ${merged.length} địa điểm du lịch gần bạn`, 'success')
+        } else {
+            showStatus('Không tìm thấy địa điểm nào trong bán kính 10km', 'error')
+        }
+    } catch (error) {
+        showStatus('Lỗi khi tìm địa điểm gần đây', 'error')
+        console.error('searchNearbyFromLocation error:', error)
+    }
+}
+
 function resetMap() {
     mapManager.clearAllLayers()
     mapClickExplorer.clear()
@@ -298,7 +345,9 @@ const customLocationInput = new CustomLocationInput(
 )
 
 locateControlInstance = new LocateControl(locationService, {
-    onStatus: showStatus
+    onStatus: showStatus,
+    // Sau khi định vị GPS thành công → tự động tìm địa điểm gần đây
+    onLocated: location => searchNearbyFromLocation(location)
 })
 locateControlInstance.addTo(mapManager.getMap())
 
@@ -321,18 +370,25 @@ mapClickExplorer.onExploreComplete = result => {
         return
     }
 
+    // Hiển thị kết quả vào sidebar
     resultsPanel.render(result.places)
+
+    // Cho phép click vào kết quả trong sidebar để focus marker
+    resultsPanel.onSelect = focusPlace
 
     const sourceLabel = {
         overpass: 'Overpass',
         'nominatim-search': 'Nominatim',
         'nominatim-reverse': 'Nominatim',
-        'bbox-fallback': 'vùng xấp xỉ'
+        'bbox-fallback': 'vùng xấp xỉ',
+        coordinate: 'tọa độ'
     }[result.boundary.source] || ''
 
+    const sourceSuffix = sourceLabel ? ` · Ranh giới ${sourceLabel}` : ''
+
     showStatus(
-        `${result.boundary.name}: ${result.places.length} địa điểm · Ranh giới ${sourceLabel}. Chuột đã về bình thường.`,
-        'success'
+        `${result.boundary.name}: ${result.places.length} địa điểm${sourceSuffix}. Chuột đã về bình thường.`,
+        result.places.length > 0 ? 'success' : 'error'
     )
 }
 

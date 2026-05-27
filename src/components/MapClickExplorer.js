@@ -92,48 +92,55 @@ export default class MapClickExplorer {
     async exploreAt(lat, lng) {
         this.showClickMarker(lat, lng)
 
+        // --- 1. Lấy ranh giới vùng ---
         const boundary = await this.boundaryService.getBoundaryAtPoint(lat, lng)
 
-        if (!boundary) {
-            this.onExploreComplete?.({
-                status: 'error',
-                message: 'Không xác định được vùng tại điểm này'
-            })
-            return
+        // --- 2. Tính bounding box từ boundary hoặc geojson ---
+        let boundingbox = null
+        if (boundary) {
+            boundingbox = boundary.boundingbox || this.extractBboxFromGeoJSON(boundary.geojson)
+            this.mapManager.drawBoundary(
+                boundary.geojson,
+                boundary.name,
+                boundingbox
+            )
         }
 
-        this.mapManager.drawBoundary(
-            boundary.geojson,
-            boundary.name,
-            boundary.boundingbox
-        )
+        // --- 3. Lọc địa điểm GeoJSON trong vùng ---
+        // Nếu có boundingbox → lọc chính xác; nếu không → không hiện gì từ local
+        const localPlaces = boundingbox
+            ? this.boundaryService.filterPlacesInBounds(this.getAllPlaces(), boundingbox)
+            : []
 
-        const localPlaces = this.boundaryService.filterPlacesInBounds(
-            this.getAllPlaces(),
-            boundary.boundingbox
-        )
-
+        // --- 4. Tìm địa điểm từ Overpass (bán kính phủ toàn tỉnh/thành) ---
         let nearbyPlaces = []
-
         if (this.overpassService) {
-            nearbyPlaces = await this.overpassService.searchNearby(lat, lng, 15000)
+            // Radius lớn hơn để phủ toàn tỉnh/thành
+            const radius = boundingbox ? this.calcRadiusFromBbox(boundingbox) : 15000
+            nearbyPlaces = await this.overpassService.searchNearby(lat, lng, radius)
         }
 
         const merged = this.mergePlaces(localPlaces, nearbyPlaces)
 
+        // --- 5. Hiển thị marker trên bản đồ ---
         this.mapManager.clearSearchMarkers()
         this.displayPlaces(merged)
 
-        if (boundary.boundingbox) {
-            const [south, north, west, east] = boundary.boundingbox
+        // --- 6. Fit bounds ---
+        if (boundingbox) {
+            const [south, north, west, east] = boundingbox
             this.mapManager.fitBounds([[south, west], [north, east]], [60, 60])
         } else {
-            this.mapManager.flyTo(lat, lng, 11)
+            this.mapManager.flyTo(lat, lng, boundary ? 11 : 12)
         }
 
+        // --- 7. Thông báo kết quả ---
         this.onExploreComplete?.({
             status: 'success',
-            boundary,
+            boundary: boundary || {
+                name: `${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+                source: 'coordinate'
+            },
             places: merged,
             lat,
             lng
@@ -141,6 +148,49 @@ export default class MapClickExplorer {
 
         // Tự tắt chế độ chọn vùng → trả con trỏ về bình thường
         this.disable()
+    }
+
+    /**
+     * Trích xuất bounding box [south, north, west, east] từ GeoJSON
+     */
+    extractBboxFromGeoJSON(geojson) {
+        if (!geojson) return null
+
+        try {
+            const coords = this.flattenCoordinates(geojson.coordinates)
+            if (!coords.length) return null
+
+            const lngs = coords.map(c => c[0])
+            const lats = coords.map(c => c[1])
+
+            return [
+                Math.min(...lats),
+                Math.max(...lats),
+                Math.min(...lngs),
+                Math.max(...lngs)
+            ]
+        } catch {
+            return null
+        }
+    }
+
+    flattenCoordinates(arr) {
+        if (!arr || !arr.length) return []
+        if (typeof arr[0] === 'number') return [arr]
+        return arr.flatMap(a => this.flattenCoordinates(a))
+    }
+
+    /**
+     * Tính bán kính (m) bao phủ bounding box, nhân 1.2 để an toàn
+     */
+    calcRadiusFromBbox(boundingbox) {
+        const [south, north, west, east] = boundingbox
+        const latDiff = north - south
+        const lngDiff = east - west
+        const maxDeg = Math.max(latDiff, lngDiff)
+        // 1 độ ≈ 111km; chia đôi để lấy bán kính, tối thiểu 15km, tối đa 80km
+        const radius = Math.min(Math.max((maxDeg / 2) * 111000 * 1.2, 15000), 80000)
+        return Math.round(radius)
     }
 
     showClickMarker(lat, lng) {

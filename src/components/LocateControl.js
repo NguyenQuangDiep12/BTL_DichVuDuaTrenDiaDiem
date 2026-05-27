@@ -10,6 +10,7 @@ export default class LocateControl extends L.Control {
         super({ position: options.position || 'bottomright' })
         this.locationService = locationService
         this.onStatus = options.onStatus || (() => {})
+        this.onLocated = options.onLocated || null   // callback(location) sau khi định vị xong
         this.isLocating = false
     }
 
@@ -49,6 +50,8 @@ export default class LocateControl extends L.Control {
                 `Vị trí: ${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`,
                 'success'
             )
+            // Trigger tìm địa điểm gần đây sau khi định vị thành công
+            this.onLocated?.(location)
         } catch (error) {
             this.onStatus(error.message || 'Không thể định vị', 'error')
         } finally {
